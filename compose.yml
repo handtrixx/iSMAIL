@@ -1,0 +1,11 @@
+services:
+  imap:
+    build: ./src/docker
+    container_name: imap
+    hostname: imap
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./src:/app
+      - ./config.yml:/app/config.yml

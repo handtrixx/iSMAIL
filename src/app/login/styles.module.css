@@ -1,0 +1,12 @@
+.loginWrapper {
+   height: 100vh;
+   width: 100vw;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+  }
+
+
+.loginContainer {
+  width: 380px;
+}

@@ -1,0 +1,384 @@
+/* Container */
+.tableContainer {
+  height: calc(100vh - 244px);
+  max-height: calc(100vh - 244px);
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--bbraun-gray-20);
+  background-color: var(--bbraun-space);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.tableWrapper {
+  flex: 1;
+  overflow: auto; /* Enable both horizontal and vertical scrolling */
+}
+
+/* Table */
+.table {
+  width: max-content; /* Allow table to expand beyond container width */
+  min-width: 100%; /* Ensure table takes at least full width */
+  border-collapse: collapse;
+}
+
+/* Header */
+.thead {
+  background-color: #f5f5f5;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.headerRow {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.headerCell {
+  padding: 0;
+  text-align: left;
+  font-weight: 800;
+  background-color: var(--bbraun-gray-20);
+  border-right: 0;
+  white-space: nowrap; /* Prevent text wrapping in headers */
+}
+
+.headerContent {
+  display: flex;
+  padding-left: 16px;
+  padding-right: 16px;
+  align-items: center;
+  min-height: 56px;
+  width: 100%;
+}
+
+.headerText {
+  text-align: left;
+  white-space: nowrap; /* Prevent header text from wrapping */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Add ellipsis for very long headers */
+  flex: 1; /* Allow text to take available space */
+}
+
+.sortIcon {
+  width: 18px;
+  height: 18px;
+  margin-left: 8px;
+  color: #757575;
+  transition: color 0.2s ease;
+  flex-shrink: 0; /* Prevent icon from shrinking */
+}
+
+/* Filter */
+.filterContainer {
+  position: absolute;
+}
+
+.filterInput {
+  width: calc(100% - 56px);
+  border: 1px solid var(--bbraun-gray-40);
+  border-radius: 8px;
+  background-color: #ffff;
+  min-width: 0;
+  height: 48px;
+  max-width: calc(100% - 56px);
+  font-size: 16px;
+  color: black;
+  padding-left: 8px;
+}
+
+.filterGlobal {
+  width: 100%;
+  border: 1px solid var(--bbraun-gray-40);
+  border-radius: 8px;
+  background-color: #ffff;
+  min-width: 0;
+  height: 48px;
+  font-size: 16px;
+  color: black;
+  padding-left: 8px;
+}
+
+.filterInput:focus,
+.filterGlobal:focus {
+  outline: none;
+  border-color: var(--bbraun-active);
+}
+
+/* Body */
+.tbody {
+  background-color: #ffff;
+}
+
+.bodyRow {
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.2s ease;
+}
+
+.bodyRow:hover {
+  background-color: #f8f9fa;
+}
+
+.evenRow {
+  background-color: #ffff;
+}
+
+.oddRow {
+  background-color: #fafafa;
+}
+
+.oddRow:hover {
+  background-color: #f5f5f5;
+}
+
+.bodyCell {
+  padding: 16px;
+  font-size: 14px;
+  color: #424242;
+  border-right: 0;
+  vertical-align: middle;
+  white-space: nowrap; /* Prevent cell content from wrapping */
+  overflow: hidden;
+}
+
+.bodyCell:last-child {
+  border-right: none;
+}
+
+.cellContent {
+  display: block;  
+  max-width: 300px;
+  min-height: 24px;
+  overflow-x: auto;
+  white-space: nowrap;
+  /* Hide scrollbar for WebKit browsers (Chrome, Safari, Edge) */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+/* Hide scrollbar for WebKit browsers */
+.cellContent::-webkit-scrollbar {
+  display: none;
+}
+
+.infoText {
+  font-size: 12px;
+  color: var(--bbraun-gray-80);
+  align-self: end;
+}
+/* dont show on small devices */
+@media (max-width: 600px) {
+  .infoText {
+    display: none;
+  }
+}
+
+/* Empty State */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  padding: 32px;
+  text-align: center;
+}
+
+.emptyIcon {
+  width: 64px;
+  height: 64px;
+  color: #bdbdbd;
+  margin-bottom: 16px;
+}
+
+.emptyTitle {
+  font-size: 18px;
+  font-weight: 500;
+  color: #424242;
+  margin: 0 0 8px 0;
+}
+
+.emptyDescription {
+  font-size: 14px;
+  color: #757575;
+  margin: 0;
+}
+
+/* Toolbar styles */
+.tableToolbar {
+  position: relative;
+  z-index: 100; /* Increase z-index for toolbar */
+}
+
+/* Column Selector Dropdown */
+.columnSelectorContent {
+  padding: 8px 0;
+  max-height: 280px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  pointer-events: auto; /* Ensure scrolling works */
+}
+
+.columnSelectorItem {
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  user-select: none;
+  pointer-events: auto;
+}
+
+.columnSelectorItem:hover {
+  background-color: var(--bbraun-gray-10, #f8f9fa);
+}
+
+.columnLabel {
+  font-size: 14px;
+  color: var(--bbraun-text-primary, #333);
+  cursor: pointer;
+  flex: 1;
+  line-height: 1.4;
+  /* Allow label interactions */
+  pointer-events: auto;
+}
+
+/* Make sure the dropdown itself allows interactions */
+.columnSelector {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: white;
+  border: 1px solid var(--bbraun-gray-40, #e0e0e0);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+ 
+  z-index: 1002; /* Higher than overlay */
+  animation: dropdownFadeIn 0.15s ease-out;
+  pointer-events: auto;
+}
+
+.columnSelectorWrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.columnSelectorHeader {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--bbraun-gray-30, #e0e0e0);
+  background-color: var(--bbraun-gray-10, #f8f9fa);
+  border-radius: 8px 8px 0 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--bbraun-text-primary, #333);
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000; /* Lower than dropdown */
+  background: transparent;
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Update the existing columnCheckbox style: */
+.columnCheckbox {
+  margin-right: 12px;
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+  accent-color: var(--bbraun-active);
+  pointer-events: auto;
+}
+
+/* Add this new style for the export dropdown */
+.exportDropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: white;
+  border: 1px solid var(--bbraun-gray-40, #e0e0e0);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  min-width: 180px;
+  z-index: 1002;
+  animation: dropdownFadeIn 0.15s ease-out;
+  pointer-events: auto;
+}
+
+/* Add this new style for clickable links */
+.linkCell {
+  color: var(--bbraun-active);
+  cursor: pointer;
+  transition: color 0.2s ease;
+  word-break: break-all; /* Allow long URLs to break */
+  display: inline-block;
+  max-width: 100%;
+}
+
+.linkCell:hover {
+  color: var(--bbraun-active-hover, #0052a3);
+}
+
+.linkCell:visited {
+  color: var(--bbraun-active-visited, #551a8b);
+}
+
+/* Add to your existing styles.module.css */
+.loadingOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  border-radius: inherit;
+}
+
+.spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinnerIcon {
+  width: 40px;
+  height: 40px;
+  color: var(--bbraun-active, #007bff);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Optional: Add a subtle loading state for interactive elements */
+.headerContent button:disabled,
+.filterInput:disabled,
+.filterGlobal:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

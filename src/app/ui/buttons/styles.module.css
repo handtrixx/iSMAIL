@@ -1,0 +1,212 @@
+
+/* Base button styles */
+.btnRect {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
+  position: relative;
+  overflow: hidden;
+  outline: none;
+}
+
+.btnRound {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
+  position: relative;
+  overflow: hidden;
+  outline: none;
+  aspect-ratio: 1;
+}
+
+/* Size variants */
+.small {
+  height: 32px;
+  padding: 0 16px;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.medium {
+  height: 40px;
+  padding: 0 24px;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.large {
+  height: 48px;
+  padding: 0 32px;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+/* Round button sizes */
+.btnRound.small {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+}
+
+.btnRound.medium {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+}
+
+.btnRound.large {
+  width: 48px;
+  height: 48px;
+  padding: 0;
+}
+
+/* Full width */
+.fullWidth {
+  width: 100%;
+}
+
+/* Material Design 3 Variants */
+
+/* Filled Button (Primary) */
+.filled {
+  background-color: var(--md-sys-color-primary, #d0bcff);
+  color: var(--md-sys-color-on-primary, #381e72);
+}
+
+.filled:hover:not(:disabled) {
+  background-color: var(--md-sys-color-primary-hover, #e8ddff);
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+}
+
+.filled:focus:not(:disabled) {
+  background-color: var(--md-sys-color-primary-focus, #e8ddff);
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+}
+
+.filled:active:not(:disabled) {
+  background-color: var(--md-sys-color-primary-pressed, #c7b7f7);
+}
+
+/* Outlined Button */
+.outlined {
+  background-color: transparent;
+  color: var(--md-sys-color-primary, #d0bcff);
+  border: 1px solid var(--md-sys-color-outline, #938f99);
+}
+
+.outlined:hover:not(:disabled) {
+  background-color: var(--md-sys-color-primary-container, #4f378b);
+  border-color: var(--md-sys-color-primary, #d0bcff);
+}
+
+.outlined:focus:not(:disabled) {
+  background-color: var(--md-sys-color-primary-container, #4f378b);
+  border-color: var(--md-sys-color-primary, #d0bcff);
+}
+
+.outlined:active:not(:disabled) {
+  background-color: var(--md-sys-color-primary-container-pressed, #6750a4);
+}
+
+/* Text Button */
+.text {
+  background-color: transparent;
+  color: var(--md-sys-color-primary, #d0bcff);
+  border: none;
+}
+
+.text:hover:not(:disabled) {
+  background-color: var(--md-sys-color-primary-container, #4f378b);
+}
+
+.text:focus:not(:disabled) {
+  background-color: var(--md-sys-color-primary-container, #4f378b);
+}
+
+.text:active:not(:disabled) {
+  background-color: var(--md-sys-color-primary-container-pressed, #6750a4);
+}
+
+/* Elevated Button */
+.elevated {
+  background-color: var(--md-sys-color-surface-container-low, #1d1b20);
+  color: var(--md-sys-color-primary, #d0bcff);
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+}
+
+.elevated:hover:not(:disabled) {
+  background-color: var(--md-sys-color-surface-container-low-hover, #2b2930);
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 2px 6px 2px rgba(0, 0, 0, 0.15);
+}
+
+.elevated:focus:not(:disabled) {
+  background-color: var(--md-sys-color-surface-container-low-focus, #2b2930);
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 2px 6px 2px rgba(0, 0, 0, 0.15);
+}
+
+.elevated:active:not(:disabled) {
+  background-color: var(--md-sys-color-surface-container-low-pressed, #36343b);
+}
+
+/* Tonal Button */
+.tonal {
+  background-color: var(--md-sys-color-secondary-container, #4a4458);
+  color: var(--md-sys-color-on-secondary-container, #e8def8);
+}
+
+.tonal:hover:not(:disabled) {
+  background-color: var(--md-sys-color-secondary-container-hover, #5d5570);
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+}
+
+.tonal:focus:not(:disabled) {
+  background-color: var(--md-sys-color-secondary-container-focus, #5d5570);
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+}
+
+.tonal:active:not(:disabled) {
+  background-color: var(--md-sys-color-secondary-container-pressed, #6f6b85);
+}
+
+/* Disabled state */
+.disabled,
+button:disabled {
+  background-color: var(--md-sys-color-on-surface, #e6e0e9) !important;
+  color: var(--md-sys-color-surface, #141218) !important;
+  opacity: 0.12 !important;
+  cursor: not-allowed !important;
+  box-shadow: none !important;
+  border-color: transparent !important;
+}
+
+/* Focus ring for accessibility */
+button:focus-visible {
+  outline: 2px solid var(--md-sys-color-primary, #d0bcff);
+  outline-offset: 2px;
+}
+
+/* Icon and label spacing */
+.icon {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+}
+

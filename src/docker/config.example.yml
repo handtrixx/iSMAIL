@@ -1,0 +1,12 @@
+ENVIRONMENT: 
+  STAGE: DEV
+  TZ: Europe/Berlin
+APP:
+  URL: http://localhost:3000
+  SECRET: dklöföldsa3939f99fd
+USERS:
+  - admin:
+      password: admin
+      type: plain
+      role: admin
+      email: admin@example.com
