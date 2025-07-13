@@ -10,7 +10,7 @@ import Container from '@mui/material/Container';
 export const revalidate = 300;
 
 export const metadata = {
-  title: 'Dashboard | iSMAIL',
+  title: 'Accounts | iSMAIL',
 };
 
 export default async function Page() {
@@ -27,7 +27,7 @@ export default async function Page() {
             color: 'primary.main'
           }}
         >
-          iSMAIL
+          Accounts
         </Typography>
         <Typography 
           variant="h6" 
@@ -136,6 +136,5 @@ export default async function Page() {
         </Box>
       </Paper>
     </Container>
-    
   );
 }

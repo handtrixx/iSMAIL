@@ -1,11 +1,12 @@
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
-import InitColorSchemeScript from '@mui/material/InitColorSchemeScript';
-import { Roboto } from 'next/font/google';
 import { ThemeProvider } from '@mui/material/styles';
+import { Roboto } from 'next/font/google';
 import { CssBaseline } from '@mui/material';
-import theme from '../theme';
-import "./ui/styles/helpers.css";
-import "./ui/styles/global.css";
+import { NextAppProvider } from '@toolpad/core/nextjs';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import PersonIcon from '@mui/icons-material/Person';
+import type { Navigation } from '@toolpad/core/AppProvider';
+import theme from '@/theme';
 
 const roboto = Roboto({
   weight: ['300', '400', '500', '700'],
@@ -15,30 +16,30 @@ const roboto = Roboto({
 });
 
 export const metadata = {
-  title: "iSMAIL - Next Generation imapsync",
-  description: "Next Generation imapsync",
-  generator: "texteditor",
-  applicationName: "iSMAIL",
-  referrer: "origin-when-cross-origin",
-  keywords: ["imapsync", "imap", "mail", "backup"],
-  authors: [{ name: "handtrixxx", url: "https://niklas-stephan.de" }],
-  creator: "Niklas Stephan",
-  publisher: "handtrixx",
+  title: 'iSMAIL - Next Generation imapsync',
+  description: 'Next Generation imapsync',
+  generator: 'texteditor',
+  applicationName: 'iSMAIL',
+  referrer: 'origin-when-cross-origin',
+  keywords: ['imapsync', 'imap', 'mail', 'backup'],
+  authors: [{ name: 'handtrixxx', url: 'https://niklas-stephan.de' }],
+  creator: 'Niklas Stephan',
+  publisher: 'handtrixx',
   openGraph: {
-    title: "iSMAIL - Next Generation imapsync",
-    description: "Next Generation imapsync",
-    url: "https://niklas-stephan.de",
-    siteName: "iSMAIL",
+    title: 'iSMAIL - Next Generation imapsync',
+    description: 'Next Generation imapsync',
+    url: 'https://niklas-stephan.de',
+    siteName: 'iSMAIL',
     images: [
       {
-        url: "https://cdfox.bbraun.io/assets/img/bfox.webp",
+        url: 'https://cdfox.bbraun.io/assets/img/bfox.webp',
         width: 644,
         height: 480,
-        alt: "CDFox",
+        alt: 'CDFox',
       },
     ],
-    locale: "en_US",
-    type: "website",
+    locale: 'en_US',
+    type: 'website',
   },
   robots: {
     index: false,
@@ -48,40 +49,68 @@ export const metadata = {
       index: true,
       follow: false,
       noimageindex: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
     },
   },
   icons: {
-    icon: "/assets/img/bfox.webp",
-    shortcut: "/assets/img/bfox.webp",
-    apple: "/assets/img/bfox.webp",
+    icon: '/assets/img/bfox.webp',
+    shortcut: '/assets/img/bfox.webp',
+    apple: '/assets/img/bfox.webp',
     other: {
-      rel: "apple-touch-icon-precomposed",
-      url: "/assets/img/bfox.webp",
+      rel: 'apple-touch-icon-precomposed',
+      url: '/assets/img/bfox.webp',
     },
   },
-  manifest: "/manifest.json",
+  manifest: '/manifest.json',
 };
 
 export const viewport = {
-  width: "device-width",
+  width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-  viewportFit: "cover",
+  viewportFit: 'cover',
 };
 
-export default function RootLayout({ children }) {
+const NAVIGATION: Navigation = [
+  {
+    kind: 'header',
+    title: 'Main items',
+  },
+  {
+    title: 'Dashboard',
+    segment: 'dashboard',
+    icon: <DashboardIcon />,
+  },
+  {
+    segment: 'dashboard/employees',
+    title: 'Employees',
+    icon: <PersonIcon />,
+    pattern: 'dashboard/employees{/:employeeId}*',
+  },
+];
+
+const BRANDING = {
+  title: 'My Toolpad Core Next.js App',
+};
+
+export default async function RootLayout(props: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={roboto.variable} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={roboto.variable}
+      suppressHydrationWarning
+      data-toolpad-color-scheme="light"
+    >
       <body>
-        <InitColorSchemeScript attribute="data-theme" />
-        <AppRouterCacheProvider>
+        <AppRouterCacheProvider options={{ enableCssLayer: true }}>
           <ThemeProvider theme={theme}>
             <CssBaseline />
-            {children}
+            <NextAppProvider navigation={NAVIGATION} branding={BRANDING}>
+              {props.children}
+            </NextAppProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>

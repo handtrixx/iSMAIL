@@ -1,6 +1,11 @@
-const yaml = require('js-yaml');
-const fs = require('fs');
-const path = require('path');
+import yaml from 'js-yaml';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Get __dirname equivalent in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 async function setupEnv() {
   try {
@@ -29,23 +34,22 @@ async function setupEnv() {
     
     // Create export commands for shell
     const exportCommands = [
-        '#!/bin/sh',
-        Object.entries(envVars)
-          .map(([key, value]) => `export ${key}=${value ? `"${value}"` : '""'}`)
-          .join('\n'),
-        // Add the Next.js specific variables
-        'export AUTH_SECRET="${APP_SECRET}"',
-        'export NEXTAUTH_TRUST_HOST=true',
-        'export NEXTAUTH_URL="${APP_URL}"',
-        'export NEXT_TELEMETRY_DISABLED=1'
-      ].join('\n');
+      '#!/bin/sh',
+      Object.entries(envVars)
+        .map(([key, value]) => `export ${key}=${value ? `"${value}"` : '""'}`)
+        .join('\n'),
+      // Add the Next.js specific variables
+      'export AUTH_SECRET="${APP_SECRET}"',
+      'export NEXTAUTH_TRUST_HOST=true',
+      'export NEXTAUTH_URL="${APP_URL}"',
+      'export NEXT_TELEMETRY_DISABLED=1'
+    ].join('\n');
 
     // Write export commands to a temporary shell script
     fs.writeFileSync('/app/app/lib/export_env.sh', exportCommands);
     // Make the script executable
     fs.chmodSync('/app/app/lib/export_env.sh', '755');
 
-    
     // Set process.env variables
     Object.entries(envVars).forEach(([key, value]) => {
       process.env[key] = value;
@@ -59,9 +63,10 @@ async function setupEnv() {
   }
 }
 
-module.exports = setupEnv;
+// Export as default for ES6 modules
+export default setupEnv;
 
-// Execute if running directly
-if (require.main === module) {
+// Execute if running directly (ES6 module equivalent of require.main === module)
+if (import.meta.url === `file://${process.argv[1]}`) {
   setupEnv();
 }

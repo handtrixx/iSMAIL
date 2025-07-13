@@ -3,47 +3,25 @@ import { createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
   cssVariables: {
-    colorSchemeSelector: 'data-theme',
+    colorSchemeSelector: 'data-toolpad-color-scheme',
   },
   // Typography configuration
   typography: {
-    fontFamily: 'var(--font-roboto), Arial, sans-serif',
-    fontSize: 14,
-    fontWeightLight: 300,
-    fontWeightRegular: 400,
-    fontWeightMedium: 500,
-    fontWeightBold: 700,
     h1: {
-      fontSize: '2.5rem',
-      fontWeight: 300,
-      lineHeight: 1.2,
     },
     h2: {
-      fontSize: '2rem',
-      fontWeight: 300,
-      lineHeight: 1.3,
     },
     h3: {
-      fontSize: '1.75rem',
-      fontWeight: 400,
-      lineHeight: 1.4,
     },
     body1: {
-      fontSize: '1rem',
-      lineHeight: 1.5,
     },
     body2: {
-      fontSize: '0.875rem',
-      lineHeight: 1.43,
     },
     button: {
-      fontWeight: 500,
-      textTransform: 'none', // Disable uppercase transformation
     },
   },
   // Shape configuration (border radius)
   shape: {
-    borderRadius: 8, // Default border radius for components
   },
   // Spacing configuration
   spacing: 8, // Base spacing unit (8px)
@@ -53,7 +31,27 @@ const theme = createTheme({
     '0px 1px 3px rgba(0, 0, 0, 0.12)',
     '0px 2px 6px rgba(0, 0, 0, 0.16)',
     '0px 3px 12px rgba(0, 0, 0, 0.16)',
-    // ... you can customize all 25 shadow levels
+    '0px 4px 16px rgba(0, 0, 0, 0.16)',
+    '0px 5px 20px rgba(0, 0, 0, 0.16)',
+    '0px 6px 24px rgba(0, 0, 0, 0.16)',
+    '0px 7px 28px rgba(0, 0, 0, 0.16)',
+    '0px 8px 32px rgba(0, 0, 0, 0.16)',
+    '0px 9px 36px rgba(0, 0, 0, 0.16)',
+    '0px 10px 40px rgba(0, 0, 0, 0.16)',
+    '0px 11px 44px rgba(0, 0, 0, 0.16)',
+    '0px 12px 48px rgba(0, 0, 0, 0.16)',
+    '0px 13px 52px rgba(0, 0, 0, 0.16)',
+    '0px 14px 56px rgba(0, 0, 0, 0.16)',
+    '0px 15px 60px rgba(0, 0, 0, 0.16)',
+    '0px 16px 64px rgba(0, 0, 0, 0.16)',
+    '0px 17px 68px rgba(0, 0, 0, 0.16)',
+    '0px 18px 72px rgba(0, 0, 0, 0.16)',
+    '0px 19px 76px rgba(0, 0, 0, 0.16)',
+    '0px 20px 80px rgba(0, 0, 0, 0.16)',
+    '0px 21px 84px rgba(0, 0, 0, 0.16)',
+    '0px 22px 88px rgba(0, 0, 0, 0.16)',
+    '0px 23px 92px rgba(0, 0, 0, 0.16)',
+    '0px 24px 96px rgba(0, 0, 0, 0.16)',
   ] as any,
   // Breakpoints for responsive design
   breakpoints: {
@@ -77,8 +75,8 @@ const theme = createTheme({
     light: {
       palette: {
         background: {
-          default: 'rgb(240, 240, 240)', // #f0f0f0
-          paper: 'rgb(255, 255, 255)', // Fixed: was '#ffff'
+          default: 'rgb(248, 248, 248)', // #f0f0f0
+          paper: 'rgb(250, 250, 250)', // Fixed: was '#ffff'
         },
         text: {
           primary: 'rgb(35, 33, 33)',
@@ -167,20 +165,20 @@ const theme = createTheme({
   },
   // Component-specific overrides
   components: {
+        // Button customization
+        MuiAppBar: {
+          styleOverrides: {
+            root: {
+             
+            },
+          },
+        },
     // Button customization
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: 12, // Custom border radius for buttons
-          textTransform: 'none',
-          fontWeight: 500,
-          padding: '8px 16px',
         },
         contained: {
-          boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
-          '&:hover': {
-            boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.15)',
-          },
         },
       },
     },
@@ -188,27 +186,17 @@ const theme = createTheme({
     MuiTextField: {
       styleOverrides: {
         root: {
-          '& .MuiOutlinedInput-root': {
-            borderRadius: 8,
-          },
         },
       },
     },
     // Paper customization
     MuiPaper: {
       styleOverrides: {
-        root: {
-          borderRadius: 12,
-        },
       },
     },
     // Card customization
     MuiCard: {
       styleOverrides: {
-        root: {
-          borderRadius: 16,
-          boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.1)',
-        },
       },
     },
   },

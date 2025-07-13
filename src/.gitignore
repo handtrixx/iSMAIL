@@ -43,3 +43,6 @@ next-env.d.ts
 eport_env.sh
 
 /.pnpm-store
+
+/data/employees.yaml
+!/data/employees.example.yaml

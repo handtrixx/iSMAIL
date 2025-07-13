@@ -9,6 +9,8 @@ WORKDIR /app
 
 RUN apt-get update && apt-get install -y curl git jq && rm -rf /var/lib/apt/lists/* && apt-get clean
 
+RUN mkdir -p /app/data
+RUN chown -R node:node /app
 
 COPY ../ /app
 

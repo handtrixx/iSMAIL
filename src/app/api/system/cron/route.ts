@@ -6,7 +6,27 @@ import path from 'path';
 
 const LOCK_DIR = '/tmp/cdfox-locks';
 
-const JOBS = {
+// Define types for better type safety
+type JobName = 'dataimport' | 'datatransform' | 'beamsync';
+
+interface JobConfig {
+  name: string;
+  endpoint: string;
+  hours: number[];
+  minutes: number[];
+}
+
+interface JobResult {
+  job: string;
+  status: 'running' | 'skipped' | 'completed' | 'failed';
+  message?: string;
+  reason?: string;
+  lastRun?: string;
+  result?: unknown;
+  error?: string;
+}
+
+const JOBS: Record<JobName, JobConfig> = {
   dataimport: {
     name: 'Data Import',
     endpoint: '/api/system/jobs/dataimport',
@@ -67,7 +87,7 @@ function shouldRun(job: string, lastRun: number, force: boolean = false): { shou
   }
 
   const now = new Date();
-  const config = JOBS[job];
+  const config = JOBS[job as JobName];
   
   const currentHour = now.getHours();
   const currentMinute = now.getMinutes();
@@ -100,9 +120,10 @@ function shouldRun(job: string, lastRun: number, force: boolean = false): { shou
   return { should: true, reason: 'scheduled to run now' };
 }
 
-async function runJob(job: string, request: Request, force: boolean = false): Promise<any> {
+// Fixed: Changed 'any' to 'JobResult'
+async function runJob(job: string, request: Request, force: boolean = false): Promise<JobResult> {
   if (await isLocked(job)) {
-    return { job, status: 'running', message: `${JOBS[job].name} already running` };
+    return { job, status: 'running', message: `${JOBS[job as JobName].name} already running` };
   }
 
   const lastRun = await getLastRun(job);
@@ -112,7 +133,7 @@ async function runJob(job: string, request: Request, force: boolean = false): Pr
     return { 
       job, 
       status: 'skipped', 
-      message: `${JOBS[job].name} not scheduled`,
+      message: `${JOBS[job as JobName].name} not scheduled`,
       reason: shouldRunResult.reason,
       lastRun: lastRun ? new Date(lastRun).toISOString() : 'never'
     };
@@ -120,10 +141,10 @@ async function runJob(job: string, request: Request, force: boolean = false): Pr
 
   try {
     await lock(job);
-    logEntry('info', `Starting ${JOBS[job].name}`);
+    logEntry('info', `Starting ${JOBS[job as JobName].name}`);
     
     const baseUrl = new URL(request.url).origin;
-    const response = await fetch(`${baseUrl}${JOBS[job].endpoint}`, {
+    const response = await fetch(`${baseUrl}${JOBS[job as JobName].endpoint}`, {
       headers: {
         'authorization': request.headers.get('authorization') || '',
         'x-api-key': request.headers.get('x-api-key') || ''
@@ -134,15 +155,16 @@ async function runJob(job: string, request: Request, force: boolean = false): Pr
     
     if (response.ok) {
       await setLastRun(job);
-      logEntry('success', `${JOBS[job].name} completed`);
+      logEntry('success', `${JOBS[job as JobName].name} completed`);
       return { job, status: 'completed', result };
     } else {
-      logEntry('error', `${JOBS[job].name} failed`);
+      logEntry('error', `${JOBS[job as JobName].name} failed`);
       return { job, status: 'failed', error: result.message };
     }
-  } catch (error: any) {
-    logEntry('error', `${JOBS[job].name} error: ${error.message}`);
-    return { job, status: 'failed', error: error.message };
+  } catch (error: unknown) { // Fixed: Changed 'any' to 'unknown'
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+    logEntry('error', `${JOBS[job as JobName].name} error: ${errorMessage}`);
+    return { job, status: 'failed', error: errorMessage };
   } finally {
     await unlock(job);
   }
@@ -165,7 +187,7 @@ export async function GET(request: Request) {
     timestamp: now.toISOString()
   };
 
-  if (action === 'run' && job && JOBS[job]) {
+  if (action === 'run' && job && JOBS[job as JobName]) {
     const result = await runJob(job, request, true); // Force run
     return NextResponse.json({ ...result, currentTime });
   }
@@ -180,7 +202,7 @@ export async function GET(request: Request) {
   }
 
   if (action === 'status') {
-    const status = {};
+    const status: Record<string, unknown> = {};
     for (const [jobName, config] of Object.entries(JOBS)) {
       const lastRun = await getLastRun(jobName);
       const isRunning = await isLocked(jobName);

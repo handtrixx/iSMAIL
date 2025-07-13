@@ -1,7 +1,5 @@
-const yaml = require('js-yaml');
-const fs = require('fs');
-
-
+import yaml from 'js-yaml';
+import fs from 'fs';
 import { auth } from '../../auth';
 
 export default async function apiCredentials(request) {
